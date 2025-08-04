@@ -1,10 +1,12 @@
 import clsx from 'clsx'
 import { PostCoverImage } from '../PostCoverImage'
 import { PostSummary } from '../PostSummary'
+import { findAllPublicPosts } from '@/lib/post/queries'
 
-export function PostFeatured() {
-    const slug = 'lorem-ipsum'
-    const postLink = `/post/${slug}`
+export async function PostFeatured() {
+    const posts = await findAllPublicPosts()
+    const post = posts[0]
+    const postLink = `/post/${post.slug}`
     return (
         <section
             className={clsx(
@@ -17,8 +19,8 @@ export function PostFeatured() {
                     href: postLink,
                 }}
                 imageProps={{
-                    alt: 'Cover Image',
-                    src: '/images/bryen_0.png',
+                    alt: post.title,
+                    src: post.coverImageUrl,
                     width: 1200,
                     height: 720,
                     priority: true,
@@ -27,9 +29,9 @@ export function PostFeatured() {
             <PostSummary
                 postLink={postLink}
                 postHeading='h1'
-                createdAt='2025-08-01T10:00:00Z'
-                title='Lorem ipsum, dolor sit amet consectetur'
-                excerpt='Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias blanditiis vel dolorum ab nulla nemo beatae laboriosam harum? Error alias ullam a nemo, quod ducimus soluta aliquid quos fugit magnam! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias blanditiis vel dolorum ab nulla nemo beatae laboriosam harum?'
+                createdAt={post.createdAt}
+                title={post.title}
+                excerpt={post.excerpt}
             />
         </section>
     )
