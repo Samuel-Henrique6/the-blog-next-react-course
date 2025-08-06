@@ -19,6 +19,20 @@ export async function generateMetadata({
     }
 }
 
+{
+    /*
+  Se quiser gerar todas as páginas estaticamente em build html,
+  descomente a função abaixo.
+
+  export async function generateStaticParams() {
+    const posts = await findAllPublicPostsCached()
+
+    return posts.map((post) => ({
+        slug: post.slug,
+    }))
+}*/
+}
+
 export default async function PostSlugPage({ params }: PostSlugPageProps) {
     const { slug } = await params
 
