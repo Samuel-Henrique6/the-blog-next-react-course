@@ -7,6 +7,8 @@ type PostSlugPageProps = {
     params: Promise<{ slug: string }>
 }
 
+export const dynamic = 'force-static'
+
 export async function generateMetadata({
     params,
 }: PostSlugPageProps): Promise<Metadata> {

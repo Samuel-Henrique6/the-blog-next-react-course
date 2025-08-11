@@ -19,5 +19,11 @@ export function formatDistanceToNow(rawDate: string): string {
     })
 }
 
+export function formatHour(timestamps: number): string {
+    const date = new Date(timestamps)
+
+    return format(date, 'HH:mm:ss', { locale: ptBR })
+}
+
 console.log(formatDateTime('2025-08-01T10:00:00Z')) // Example usage
 console.log(formatDistanceToNow('2025-08-01T10:00:00Z'))
