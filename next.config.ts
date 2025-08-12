@@ -14,16 +14,17 @@ const nextConfig: NextConfig = {
     //    unoptimized: true,
     //},
     //-----------------
-    experimental: {
-        useCache: true,
-        cacheLife: {
-            seconds: {
-                stale: 0,
-                revalidate: 60,
-                expire: 10,
-            },
-        },
-    },
+    //unstable_cache
+    //experimental: {
+    //    useCache: true,
+    //    cacheLife: {
+    //        seconds: {
+    //            stale: 0,
+    //            revalidate: 60,
+    //            expire: 10,
+    //        },
+    //    },
+    //},
 }
 
 export default nextConfig
