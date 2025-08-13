@@ -25,6 +25,8 @@ export default function RootLayout({
                     {children}
                     <Footer />
                 </Container>
+
+                <ToastifyContainer />
             </body>
         </html>
     )
