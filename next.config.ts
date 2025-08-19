@@ -1,6 +1,24 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'localhost',
+                port: '3000',
+                pathname: '/**',
+                search: '',
+            },
+            {
+                protocol: 'http',
+                hostname: 'localhost',
+                port: '3000',
+                pathname: '/**',
+                search: '',
+            },
+        ],
+    },
     /* config options here */
     // Class 142 - Opcional: Publicando a pasta out no GitHub Pages
     // for static export -- maneiras de renderizar o site
