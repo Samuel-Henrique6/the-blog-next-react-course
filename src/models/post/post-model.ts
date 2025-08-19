@@ -10,3 +10,5 @@ export type PostModel = {
     updatedAt: string
     author: string
 }
+
+export type PublicPost = Omit<PostModel, 'updatedAt'>
