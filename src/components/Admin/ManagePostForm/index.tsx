@@ -7,7 +7,7 @@ import { MarkdownEditor } from '@/components/MarkDownEditor'
 import { useActionState, useEffect, useState } from 'react'
 import { ImageUploader } from '../ImageUploader'
 import { PublicPost } from '@/models/post/post-model'
-import { createPostAction } from '@/actions/post/crate-post-action'
+import { createPostAction } from '@/actions/post/create-post-action'
 import { makePartialPublicPost } from '@/dto/post/dto'
 import { toast } from 'react-toastify'
 
