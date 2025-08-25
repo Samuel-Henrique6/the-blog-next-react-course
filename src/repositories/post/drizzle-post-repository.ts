@@ -6,11 +6,11 @@ import { asyncDelay } from '@/utils/async-delay'
 import { SIMULATE_WAIT_IN_MS } from '@/lib/constants'
 import { postsTable } from '@/db/drizzle/schemas'
 import { eq } from 'drizzle-orm'
+import { deleteImageAction } from '@/actions/upload/delete-image-action'
 
 export class DrizzlePostRepository implements PostRepository {
     async findAllPublic(): Promise<PostModel[]> {
         await asyncDelay(SIMULATE_WAIT_IN_MS, true)
-        logColor('FindAllPublic', Date.now())
 
         const posts = await drizzleDb.query.posts.findMany({
             orderBy: (posts, { desc }) => desc(posts.createdAt),
@@ -21,7 +21,6 @@ export class DrizzlePostRepository implements PostRepository {
     }
     async findBySlugPublic(slug: string): Promise<PostModel> {
         await asyncDelay(SIMULATE_WAIT_IN_MS, true)
-        logColor('FindBySlugPublic', Date.now())
 
         const post = await drizzleDb.query.posts.findFirst({
             where: (posts, { eq, and }) =>
@@ -36,7 +35,6 @@ export class DrizzlePostRepository implements PostRepository {
     }
     async findAll(): Promise<PostModel[]> {
         await asyncDelay(SIMULATE_WAIT_IN_MS, true)
-        logColor('FindAll', Date.now())
 
         const posts = await drizzleDb.query.posts.findMany({
             orderBy: (posts, { desc }) => desc(posts.createdAt),
@@ -46,7 +44,6 @@ export class DrizzlePostRepository implements PostRepository {
     }
     async findById(id: string): Promise<PostModel> {
         await asyncDelay(SIMULATE_WAIT_IN_MS, true)
-        logColor('FindById', Date.now())
 
         const post = await drizzleDb.query.posts.findFirst({
             where: (posts, { eq }) => eq(posts.id, id),
@@ -85,6 +82,7 @@ export class DrizzlePostRepository implements PostRepository {
         }
 
         await drizzleDb.delete(postsTable).where(eq(postsTable.id, id))
+        await deleteImageAction(post.coverImageUrl)
         return post
     }
 

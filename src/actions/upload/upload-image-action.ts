@@ -5,7 +5,6 @@ import {
     IMAGE_UPLOAD_DIRECTORY,
     IMAGE_UPLOAD_MAX_SIZE,
 } from '@/lib/constants'
-import { asyncDelay } from '@/utils/async-delay'
 import { mkdir, writeFile } from 'fs/promises'
 import { extname, resolve } from 'path'
 
@@ -18,9 +17,6 @@ export async function uploadImageAction(
     formData: FormData
 ): Promise<UploadImageActionResult> {
     // [ ] Checar login do usuario
-
-    // [ ] Remover delay
-    await asyncDelay(5000, true)
 
     const makeResult = ({ url = '', error = '' }) => ({
         url,
@@ -47,7 +43,7 @@ export async function uploadImageAction(
 
     const imageExtension = extname(file.name) //retorna a extensao do arquivo
     const uniqueImageName = `${Date.now()}${imageExtension}`
-    console.log(process.cwd())
+
     const uploadFullPath = resolve(
         process.cwd(),
         'public',
