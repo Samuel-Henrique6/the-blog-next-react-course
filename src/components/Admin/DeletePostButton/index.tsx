@@ -1,6 +1,7 @@
 'use client'
 
 import { deletePostAction } from '@/actions/post/delete-post-action'
+import { deleteImageAction } from '@/actions/upload/delete-image-action'
 import { Dialog } from '@/components/Dialog'
 import clsx from 'clsx'
 import { Trash2Icon } from 'lucide-react'
@@ -24,6 +25,11 @@ export function DeletePostButton({ id, title }: DeletePostButtonProps) {
         toast.dismiss()
         startTransition(async () => {
             const result = await deletePostAction(id)
+
+            if (!result.error) {
+                await deleteImageAction(result.fileName)
+            }
+
             setShowDialog(false)
 
             if (result.error) {

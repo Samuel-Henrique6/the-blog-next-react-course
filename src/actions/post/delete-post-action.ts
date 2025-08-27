@@ -2,6 +2,7 @@
 
 import { postRepository } from '@/repositories/post'
 import { revalidateTag } from 'next/cache'
+import { basename } from 'path'
 export async function deletePostAction(id: string) {
     //[ ] Checar login do usuario
 
@@ -18,11 +19,13 @@ export async function deletePostAction(id: string) {
     } catch (error: unknown) {
         if (error instanceof Error) {
             return {
+                fileName: '',
                 error: error.message,
             }
         }
 
         return {
+            fileName: '',
             error: 'Erro ao deletar post',
         }
     }
@@ -31,6 +34,7 @@ export async function deletePostAction(id: string) {
     revalidateTag(`post-${post.slug}`)
 
     return {
+        fileName: basename(post.coverImageUrl),
         error: '',
     }
 }
