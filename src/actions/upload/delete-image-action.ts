@@ -1,6 +1,5 @@
 'use server'
 
-import { IMAGE_UPLOAD_DIRECTORY } from '@/lib/constants'
 import { unlink } from 'fs/promises'
 import { resolve } from 'path'
 
@@ -20,7 +19,7 @@ export async function deleteImageAction(
         const fileFullPath = resolve(
             process.cwd(),
             'public',
-            IMAGE_UPLOAD_DIRECTORY,
+            process.env.IMAGE_UPLOAD_DIRECTORY || 'uploads',
             fileName
         )
         await unlink(fileFullPath)

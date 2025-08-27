@@ -1,10 +1,5 @@
 'use server'
 
-import {
-    IMAGE_SERVER_URL,
-    IMAGE_UPLOAD_DIRECTORY,
-    IMAGE_UPLOAD_MAX_SIZE,
-} from '@/lib/constants'
 import { mkdir, writeFile } from 'fs/promises'
 import { extname, resolve } from 'path'
 
@@ -33,7 +28,7 @@ export async function uploadImageAction(
         return makeResult({ error: 'Arquivo inválido' })
     }
 
-    if (file.size > IMAGE_UPLOAD_MAX_SIZE) {
+    if (file.size > Number(process.env.IMAGE_UPLOAD_MAX_SIZE)) {
         return makeResult({ error: 'Arquivo muito grande' })
     }
 
@@ -47,7 +42,7 @@ export async function uploadImageAction(
     const uploadFullPath = resolve(
         process.cwd(),
         'public',
-        IMAGE_UPLOAD_DIRECTORY
+        process.env.IMAGE_UPLOAD_DIRECTORY || 'uploads'
     )
 
     //cria o diretorio, recursive = true cria somente se nao existir
@@ -62,7 +57,9 @@ export async function uploadImageAction(
     await writeFile(fileFullPath, buffer)
     //salva o arquivo
 
-    const url = `${IMAGE_SERVER_URL}/${uniqueImageName}`
+    const imgServerUrl =
+        process.env.IMAGE_SERVER_URL || 'http://localhost:3000/uploads'
+    const url = `${imgServerUrl}/${uniqueImageName}`
 
     return makeResult({ url })
 }

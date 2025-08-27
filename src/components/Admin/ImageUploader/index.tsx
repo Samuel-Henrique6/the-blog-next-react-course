@@ -3,7 +3,6 @@
 import { uploadImageAction } from '@/actions/upload/upload-image-action'
 import { Button } from '@/components/Button'
 import SpinLoaderButton from '@/components/SpinLoaderButton'
-import { IMAGE_UPLOAD_MAX_SIZE } from '@/lib/constants'
 import { ImageUpIcon } from 'lucide-react'
 import { useRef, useState, useTransition } from 'react'
 import { toast } from 'react-toastify'
@@ -37,9 +36,13 @@ export function ImageUploader({ disabled = false }: ImageUploaderProps) {
             return
         }
 
-        if (file.size > IMAGE_UPLOAD_MAX_SIZE) {
+        const uploadMaxSize =
+            Number(process.env.IMAGE_UPLOAD_MAX_SIZE) || 921600
+        if (file.size > uploadMaxSize) {
             toast.error(
-                `Image muito grande. Máx.: ${IMAGE_UPLOAD_MAX_SIZE / 1024}KB`
+                `Image muito grande. Máx.: ${(uploadMaxSize / 1024).toFixed(
+                    2
+                )}KB`
             )
             setImgUrl('')
             fileInput.value = '' // Limpa o input de arquivos, se selecionar a mesma imagem
