@@ -2,6 +2,7 @@
 
 import { uploadImageAction } from '@/actions/upload/upload-image-action'
 import { Button } from '@/components/Button'
+import SpinLoaderButton from '@/components/SpinLoaderButton'
 import { IMAGE_UPLOAD_MAX_SIZE } from '@/lib/constants'
 import { ImageUpIcon } from 'lucide-react'
 import { useRef, useState, useTransition } from 'react'
@@ -70,7 +71,7 @@ export function ImageUploader() {
                 variant='ghost'
                 disabled={isUploading}
             >
-                <ImageUpIcon />
+                {!isUploading ? <ImageUpIcon /> : <SpinLoaderButton />}
                 Enviar Imagem
             </Button>
             {!!imgUrl && (
